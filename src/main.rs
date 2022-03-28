@@ -1,10 +1,13 @@
-extern crate pancurses;
+mod tetris;
 
-use pancurses::{initscr, endwin};
+use pancurses::{endwin, initscr};
+use tetris::TetrisGameStage;
 
 fn main() {
+    let mut tetrisGameStage = TetrisGameStage::new();
+    println!("{:?}", tetrisGameStage);
+
     let window = initscr();
-    window.printw("Hello world");
     window.refresh();
     window.getch();
     endwin();
