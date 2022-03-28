@@ -43,7 +43,7 @@ pub struct OperateTet {
 impl TetrisGameStage {
     pub fn new() -> TetrisGameStage {
         TetrisGameStage {
-            field: initField(),
+            field: init_field(),
             next_op_tet: TetriminoKind::TetI,
             op_tet: OperateTet {
                 x: 0,
@@ -55,6 +55,15 @@ impl TetrisGameStage {
     }
 }
 
-fn initField() -> [[BlockKind; 12]; 21] {
-    [[BlockKind::Space; 12]; 21]
+fn init_field() -> [[BlockKind; 12]; 21] {
+    let mut field = [[BlockKind::Space; 12]; 21];
+
+    for h in 0..21 {
+        for w in 0..12 {
+            if w == 0 || w == 12 - 1 || h == 21 - 1 {
+                field[h][w] = BlockKind::Wall;
+            }
+        }
+    }
+    field
 }
