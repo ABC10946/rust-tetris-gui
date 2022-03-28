@@ -1,3 +1,5 @@
+use std::convert;
+
 #[derive(Debug)]
 pub enum TetriminoKind {
     TetI,
@@ -9,7 +11,7 @@ pub enum TetriminoKind {
     TetT,
 }
 
-#[derive(Copy, Clone, Debug)]
+#[derive(Copy, Clone, Debug, PartialEq)]
 pub enum BlockKind {
     Space,
     Block,
@@ -27,7 +29,7 @@ pub enum Direction {
 
 #[derive(Debug)]
 pub struct TetrisGameStage {
-    field: [[BlockKind; 12]; 21],
+    field: Vec<Vec<BlockKind>>,
     next_op_tet: TetriminoKind,
     op_tet: OperateTet,
 }
@@ -53,10 +55,22 @@ impl TetrisGameStage {
             },
         }
     }
+
+    pub fn print_field(&self) {
+        for h in 0..21 {
+            let convertedLine = self.field[h]
+                .iter()
+                .map(|ele| convert_blockkind_to_char(&ele))
+                .collect::<Vec<String>>()
+                .join("");
+
+            println!("{}", convertedLine);
+        }
+    }
 }
 
-fn init_field() -> [[BlockKind; 12]; 21] {
-    let mut field = [[BlockKind::Space; 12]; 21];
+fn init_field() -> Vec<Vec<BlockKind>> {
+    let mut field = vec![vec![BlockKind::Space; 12]; 21];
 
     for h in 0..21 {
         for w in 0..12 {
@@ -66,4 +80,17 @@ fn init_field() -> [[BlockKind; 12]; 21] {
         }
     }
     field
+}
+
+// printデバッグ用関数
+fn convert_blockkind_to_char(kind: &BlockKind) -> String {
+    if *kind == BlockKind::Block {
+        "#".to_string()
+    } else if *kind == BlockKind::Operating {
+        "!".to_string()
+    } else if *kind == BlockKind::Wall {
+        "+".to_string()
+    } else {
+        "_".to_string()
+    }
 }
