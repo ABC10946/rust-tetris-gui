@@ -1,4 +1,5 @@
-use std::convert;
+const WIDTH: usize = 12;
+const HEIGHT: usize = 21;
 
 #[derive(Debug)]
 pub enum TetriminoKind {
@@ -57,24 +58,24 @@ impl TetrisGameStage {
     }
 
     pub fn print_field(&self) {
-        for h in 0..21 {
-            let convertedLine = self.field[h]
+        for h in 0..HEIGHT {
+            let converted_line = self.field[h]
                 .iter()
                 .map(|ele| convert_blockkind_to_char(&ele))
                 .collect::<Vec<String>>()
                 .join("");
 
-            println!("{}", convertedLine);
+            println!("{}", converted_line);
         }
     }
 }
 
 fn init_field() -> Vec<Vec<BlockKind>> {
-    let mut field = vec![vec![BlockKind::Space; 12]; 21];
+    let mut field = vec![vec![BlockKind::Space; WIDTH]; HEIGHT];
 
-    for h in 0..21 {
-        for w in 0..12 {
-            if w == 0 || w == 12 - 1 || h == 21 - 1 {
+    for h in 0..HEIGHT {
+        for w in 0..WIDTH {
+            if w == 0 || w == WIDTH - 1 || h == HEIGHT - 1 {
                 field[h][w] = BlockKind::Wall;
             }
         }
