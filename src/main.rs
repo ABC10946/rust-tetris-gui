@@ -1,7 +1,5 @@
-mod tetris;
-
 use pancurses::{endwin, initscr};
-use tetris::{Direction, TetriminoKind, TetrisGameStage};
+use rust_tetris::tetris::{Direction, TetriminoKind, TetrisGameStage};
 
 fn main() {
     let mut tetris_game_stage = TetrisGameStage::new();
