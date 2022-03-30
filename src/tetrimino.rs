@@ -1,4 +1,4 @@
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub enum TetriminoKind {
     TetI,
     TetO,
@@ -9,7 +9,7 @@ pub enum TetriminoKind {
     TetT,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub enum Direction {
     Up,
     Down,

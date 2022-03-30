@@ -18,7 +18,7 @@ pub struct TetrisGameStage {
     op_tet: OperateTet,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct OperateTet {
     x: usize,
     y: usize,
@@ -32,7 +32,7 @@ impl TetrisGameStage {
             field: init_field(),
             next_op_tet: TetriminoKind::TetI,
             op_tet: OperateTet {
-                x: 0,
+                x: 5,
                 y: 0,
                 kind: TetriminoKind::TetJ,
                 direction: Direction::Up,
@@ -91,6 +91,22 @@ impl TetrisGameStage {
             false
         } else {
             true
+        }
+    }
+
+    pub fn draw(&mut self) {
+        self.put_tetrimino(
+            self.op_tet.kind.clone(),
+            self.op_tet.direction.clone(),
+            self.op_tet.x,
+            self.op_tet.y,
+        );
+    }
+
+    pub fn fall_proc(&mut self) {
+        self.op_tet.y += 1;
+        if !self.setable_operated_tet(self.op_tet.clone()) {
+            self.op_tet.y -= 1;
         }
     }
 }
