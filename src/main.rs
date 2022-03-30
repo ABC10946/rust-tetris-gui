@@ -4,7 +4,7 @@ use rust_tetris::tetris::{self, OperateTet, TetrisGameStage};
 
 fn main() {
     let mut tetris_game_stage = TetrisGameStage::new();
-    for i in 0..10 {
+    for i in 0..40 {
         tetris_game_stage.fall_proc();
         tetris_game_stage.draw();
         println!("{}", tetris_game_stage.output_field_str());

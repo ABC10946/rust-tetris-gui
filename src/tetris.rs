@@ -94,6 +94,27 @@ impl TetrisGameStage {
         }
     }
 
+    pub fn reset_operated_tetrimino(&mut self) {
+        self.op_tet.x = 5;
+        self.op_tet.y = 0;
+        self.op_tet.kind = self.next_op_tet;
+        self.op_tet.direction = Direction::Up;
+
+        if !self.setable_operated_tet(self.op_tet.clone()) {
+            println!("Game Over");
+        }
+    }
+
+    pub fn change_to_block(&mut self) {
+        let tetrimino = tetriminos(self.op_tet.kind.clone(), self.op_tet.direction.clone());
+        for th in 0..4 {
+            let x_offset = tetrimino[th][0];
+            let y_offset = tetrimino[th][1];
+
+            self.field[self.op_tet.y + y_offset][self.op_tet.x + x_offset] = BlockKind::Block;
+        }
+    }
+
     pub fn draw(&mut self) {
         self.put_tetrimino(
             self.op_tet.kind.clone(),
@@ -107,6 +128,8 @@ impl TetrisGameStage {
         self.op_tet.y += 1;
         if !self.setable_operated_tet(self.op_tet.clone()) {
             self.op_tet.y -= 1;
+            self.change_to_block();
+            self.reset_operated_tetrimino();
         }
     }
 }
