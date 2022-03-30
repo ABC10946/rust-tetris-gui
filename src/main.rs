@@ -1,11 +1,11 @@
 mod tetris;
 
 use pancurses::{endwin, initscr};
-use tetris::TetrisGameStage;
+use tetris::{Direction, TetriminoKind, TetrisGameStage};
 
 fn main() {
-    let tetris_game_stage = TetrisGameStage::new();
-    println!("{:?}", tetris_game_stage);
+    let mut tetris_game_stage = TetrisGameStage::new();
+    tetris_game_stage.put_tetrimino(TetriminoKind::TetT, Direction::Up, 5, 5);
     tetris_game_stage.print_field();
 
     // let window = initscr();
