@@ -83,6 +83,16 @@ impl TetrisGameStage {
             self.field[y + y_offset][x + x_offset] = BlockKind::Operating;
         }
     }
+
+    pub fn clear_oprated_tetrimino(&mut self) {
+        for h in 0..HEIGHT {
+            for w in 0..WIDTH {
+                if self.field[h][w] == BlockKind::Operating {
+                    self.field[h][w] = BlockKind::Space;
+                }
+            }
+        }
+    }
 }
 
 fn init_field() -> Vec<Vec<BlockKind>> {
