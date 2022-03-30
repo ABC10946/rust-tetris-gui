@@ -20,10 +20,10 @@ pub struct TetrisGameStage {
 
 #[derive(Debug)]
 pub struct OperateTet {
-    x: i32,
-    y: i32,
+    x: usize,
+    y: usize,
     kind: TetriminoKind,
-    rotation_id: Direction,
+    direction: Direction,
 }
 
 impl TetrisGameStage {
@@ -35,7 +35,7 @@ impl TetrisGameStage {
                 x: 0,
                 y: 0,
                 kind: TetriminoKind::TetJ,
-                rotation_id: Direction::Up,
+                direction: Direction::Up,
             },
         }
     }
@@ -71,6 +71,26 @@ impl TetrisGameStage {
                     self.field[h][w] = BlockKind::Space;
                 }
             }
+        }
+    }
+
+    pub fn setable_operated_tet(&self, op_tet: OperateTet) -> bool {
+        let tetrimino = tetriminos(op_tet.kind, op_tet.direction);
+        let x = op_tet.x;
+        let y = op_tet.y;
+
+        if self.field[y + tetrimino[0][1]][x + tetrimino[0][0]] == BlockKind::Block
+            || self.field[y + tetrimino[1][1]][x + tetrimino[1][0]] == BlockKind::Block
+            || self.field[y + tetrimino[2][1]][x + tetrimino[2][0]] == BlockKind::Block
+            || self.field[y + tetrimino[3][1]][x + tetrimino[3][0]] == BlockKind::Block
+            || self.field[y + tetrimino[0][1]][x + tetrimino[0][0]] == BlockKind::Wall
+            || self.field[y + tetrimino[1][1]][x + tetrimino[1][0]] == BlockKind::Wall
+            || self.field[y + tetrimino[2][1]][x + tetrimino[2][0]] == BlockKind::Wall
+            || self.field[y + tetrimino[3][1]][x + tetrimino[3][0]] == BlockKind::Wall
+        {
+            false
+        } else {
+            true
         }
     }
 }
