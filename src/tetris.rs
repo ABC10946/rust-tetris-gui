@@ -74,7 +74,7 @@ impl TetrisGameStage {
         }
     }
 
-    pub fn setable_operated_tet(&self, op_tet: OperateTet) -> bool {
+    fn setable_operated_tet(&self, op_tet: OperateTet) -> bool {
         let tetrimino = tetriminos(op_tet.kind, op_tet.direction);
         let x = op_tet.x;
         let y = op_tet.y;
@@ -94,7 +94,7 @@ impl TetrisGameStage {
         }
     }
 
-    pub fn reset_operated_tetrimino(&mut self) {
+    fn reset_operated_tetrimino(&mut self) {
         self.op_tet.x = 5;
         self.op_tet.y = 0;
         self.op_tet.kind = self.next_op_tet;
@@ -105,7 +105,7 @@ impl TetrisGameStage {
         }
     }
 
-    pub fn change_to_block(&mut self) {
+    fn change_to_block(&mut self) {
         let tetrimino = tetriminos(self.op_tet.kind.clone(), self.op_tet.direction.clone());
         for th in 0..4 {
             let x_offset = tetrimino[th][0];
