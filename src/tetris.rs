@@ -74,10 +74,10 @@ impl TetrisGameStage {
         }
     }
 
-    fn setable_operated_tet(&self, op_tet: OperateTet) -> bool {
-        let tetrimino = tetriminos(op_tet.kind, op_tet.direction);
-        let x = op_tet.x;
-        let y = op_tet.y;
+    fn setable_operated_tet(&self) -> bool {
+        let tetrimino = tetriminos(self.op_tet.kind, self.op_tet.direction);
+        let x = self.op_tet.x;
+        let y = self.op_tet.y;
 
         if self.field[y + tetrimino[0][1]][x + tetrimino[0][0]] == BlockKind::Block
             || self.field[y + tetrimino[1][1]][x + tetrimino[1][0]] == BlockKind::Block
@@ -100,7 +100,7 @@ impl TetrisGameStage {
         self.op_tet.kind = self.next_op_tet;
         self.op_tet.direction = Direction::Up;
 
-        if !self.setable_operated_tet(self.op_tet.clone()) {
+        if !self.setable_operated_tet() {
             println!("Game Over");
         }
     }
@@ -126,11 +126,34 @@ impl TetrisGameStage {
 
     pub fn fall_proc(&mut self) {
         self.op_tet.y += 1;
-        if !self.setable_operated_tet(self.op_tet.clone()) {
+        if !self.setable_operated_tet() {
             self.op_tet.y -= 1;
             self.change_to_block();
             self.reset_operated_tetrimino();
         }
+    }
+
+    pub fn left_proc(&mut self) {
+        self.op_tet.x -= 1;
+        if !self.setable_operated_tet() {
+            self.op_tet.x += 1;
+        }
+    }
+
+    pub fn right_proc(&mut self) {
+        self.op_tet.x += 1;
+        if !self.setable_operated_tet() {
+            self.op_tet.x -= 1;
+        }
+    }
+
+    pub fn up_proc(&mut self) {
+        while self.setable_operated_tet() {
+            self.op_tet.y += 1;
+        }
+        self.op_tet.y -= 1;
+        self.change_to_block();
+        self.reset_operated_tetrimino();
     }
 }
 
