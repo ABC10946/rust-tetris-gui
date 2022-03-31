@@ -105,7 +105,7 @@ impl TetrisGameStage {
         }
     }
 
-    fn reset_operated_tetrimino(&mut self) {
+    pub fn reset_operated_tetrimino(&mut self) -> bool {
         self.op_tet.x = 5;
         self.op_tet.y = 0;
         self.op_tet.kind = self.next_op_tet;
@@ -113,9 +113,7 @@ impl TetrisGameStage {
 
         self.next_op_tet = random_tetrimino();
 
-        if !self.setable_operated_tet() {
-            println!("Game Over");
-        }
+        self.setable_operated_tet()
     }
 
     fn change_to_block(&mut self) {
@@ -143,7 +141,6 @@ impl TetrisGameStage {
             self.op_tet.y -= 1;
             self.change_to_block();
             self.remove_line_proc();
-            self.reset_operated_tetrimino();
         }
     }
 
@@ -168,7 +165,6 @@ impl TetrisGameStage {
         self.op_tet.y -= 1;
         self.change_to_block();
         self.remove_line_proc();
-        self.reset_operated_tetrimino();
     }
 
     pub fn rotate_proc(&mut self) {

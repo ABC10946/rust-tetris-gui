@@ -30,8 +30,20 @@ fn main() {
             }
             Some(Input::KeyLeft) => tetris_game_stage.left_proc(),
             Some(Input::KeyRight) => tetris_game_stage.right_proc(),
-            Some(Input::KeyDown) => tetris_game_stage.fall_proc(),
-            Some(Input::KeyUp) => tetris_game_stage.up_proc(),
+            Some(Input::KeyDown) => {
+                tetris_game_stage.fall_proc();
+                if !tetris_game_stage.reset_operated_tetrimino() {
+                    println!("Game Over");
+                    break;
+                }
+            }
+            Some(Input::KeyUp) => {
+                tetris_game_stage.up_proc();
+                if !tetris_game_stage.reset_operated_tetrimino() {
+                    println!("Game Over");
+                    break;
+                }
+            }
             _ => (),
         }
 
