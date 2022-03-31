@@ -1,3 +1,13 @@
+pub const KINDS: [TetriminoKind; 7] = [
+    TetriminoKind::TetI,
+    TetriminoKind::TetO,
+    TetriminoKind::TetS,
+    TetriminoKind::TetZ,
+    TetriminoKind::TetJ,
+    TetriminoKind::TetL,
+    TetriminoKind::TetT,
+];
+
 #[derive(Debug, Clone, Copy)]
 pub enum TetriminoKind {
     TetI,

@@ -1,6 +1,5 @@
 use pancurses::{endwin, initscr, Input};
-use rust_tetris::tetrimino::{Direction, TetriminoKind};
-use rust_tetris::tetris::{self, OperateTet, TetrisGameStage};
+use rust_tetris::tetris::TetrisGameStage;
 
 fn main() {
     let window = initscr();

@@ -1,4 +1,5 @@
-use crate::tetrimino::{tetriminos, Direction, TetriminoKind};
+use crate::tetrimino::{tetriminos, Direction, TetriminoKind, KINDS};
+use rand::prelude::random;
 
 const WIDTH: usize = 12;
 const HEIGHT: usize = 21;
@@ -30,11 +31,11 @@ impl TetrisGameStage {
     pub fn new() -> TetrisGameStage {
         TetrisGameStage {
             field: init_field(),
-            next_op_tet: TetriminoKind::TetI,
+            next_op_tet: random_tetrimino(),
             op_tet: OperateTet {
                 x: 5,
                 y: 0,
-                kind: TetriminoKind::TetJ,
+                kind: random_tetrimino(),
                 direction: Direction::Up,
             },
         }
@@ -99,6 +100,8 @@ impl TetrisGameStage {
         self.op_tet.y = 0;
         self.op_tet.kind = self.next_op_tet;
         self.op_tet.direction = Direction::Up;
+
+        self.next_op_tet = random_tetrimino();
 
         if !self.setable_operated_tet() {
             println!("Game Over");
@@ -181,4 +184,9 @@ fn convert_blockkind_to_char(kind: &BlockKind) -> String {
     } else {
         "_".to_string()
     }
+}
+
+fn random_tetrimino() -> TetriminoKind {
+    let tetrimino_kind_id = (random::<u8>() % 7) as usize;
+    KINDS[tetrimino_kind_id]
 }
