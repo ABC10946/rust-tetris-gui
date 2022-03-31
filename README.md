@@ -12,8 +12,6 @@ $ cargo run
 
 # control
 
-## 操作方法
-
 | key       | control          |
 | --------- | ---------------- |
 | arrow key | move tetrimino   |
