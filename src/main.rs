@@ -24,6 +24,8 @@ fn main() {
             Some(Input::Character(c)) => {
                 if c == 'q' {
                     break;
+                } else if c == 'r' {
+                    tetris_game_stage.rotate_proc();
                 }
             }
             Some(Input::KeyLeft) => tetris_game_stage.left_proc(),

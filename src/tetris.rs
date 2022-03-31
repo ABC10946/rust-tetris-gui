@@ -158,6 +158,18 @@ impl TetrisGameStage {
         self.change_to_block();
         self.reset_operated_tetrimino();
     }
+
+    pub fn rotate_proc(&mut self) {
+        if self.op_tet.direction == Direction::Up {
+            self.op_tet.direction = Direction::Right;
+        } else if self.op_tet.direction == Direction::Right {
+            self.op_tet.direction = Direction::Down;
+        } else if self.op_tet.direction == Direction::Down {
+            self.op_tet.direction = Direction::Left;
+        } else if self.op_tet.direction == Direction::Left {
+            self.op_tet.direction = Direction::Up;
+        }
+    }
 }
 
 fn init_field() -> Vec<Vec<BlockKind>> {
