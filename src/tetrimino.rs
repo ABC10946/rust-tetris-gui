@@ -62,7 +62,7 @@ pub fn tetriminos(kind: TetriminoKind, direction: Direction) -> [[usize; 2]; 4] 
         TetriminoKind::TetT => match direction {
             Direction::Down => [[0, 0], [1, 0], [2, 0], [1, 1]],
             Direction::Left => [[1, 0], [0, 1], [1, 1], [1, 2]],
-            Direction::Right => [[2, 1], [1, 0], [1, 1], [1, 2]],
+            Direction::Right => [[1, 1], [0, 0], [0, 1], [0, 2]],
             Direction::Up => [[1, 1], [0, 2], [1, 2], [2, 2]],
         },
         TetriminoKind::TetZ => match direction {
