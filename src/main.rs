@@ -1,5 +1,5 @@
 use pancurses::{endwin, initscr, Input};
-use rust_tetris::tetris::TetrisGameStage;
+use rust_tetris_gui::tetris::TetrisGameStage;
 
 fn main() {
     let window = initscr();
