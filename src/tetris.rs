@@ -4,6 +4,7 @@ use rand::prelude::random;
 const WIDTH: usize = 12;
 const HEIGHT: usize = 21;
 
+
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum BlockKind {
     Space,
@@ -12,9 +13,11 @@ pub enum BlockKind {
     Wall,
 }
 
+type Field = Vec<Vec<BlockKind>>;
+
 #[derive(Debug)]
 pub struct TetrisGameStage {
-    field: Vec<Vec<BlockKind>>,
+    field: Field,
     next_op_tet: TetriminoKind,
     op_tet: OperateTet,
 }
@@ -41,6 +44,10 @@ impl TetrisGameStage {
         }
     }
 
+    pub fn get_field(&self) -> &Field {
+        &self.field
+    }
+
     pub fn output_field_str(&self) -> String {
         let mut field_str = String::new();
         for h in 0..HEIGHT {
@@ -65,7 +72,7 @@ impl TetrisGameStage {
         }
     }
 
-    pub fn clear_oprated_tetrimino(&mut self) {
+    pub fn clear_operated_tetrimino(&mut self) {
         for h in 0..HEIGHT {
             for w in 0..WIDTH {
                 if self.field[h][w] == BlockKind::Operating {
@@ -117,6 +124,7 @@ impl TetrisGameStage {
     }
 
     fn change_to_block(&mut self) {
+        println!("change to block");
         let tetrimino = tetriminos(self.op_tet.kind.clone(), self.op_tet.direction.clone());
         for th in 0..4 {
             let x_offset = tetrimino[th][0];
@@ -137,10 +145,13 @@ impl TetrisGameStage {
 
     pub fn fall_proc(&mut self) {
         self.op_tet.y += 1;
+        println!("fall_proc");
         if !self.setable_operated_tet() {
+            println!("touch ground");
             self.op_tet.y -= 1;
             self.change_to_block();
             self.remove_line_proc();
+            self.reset_operated_tetrimino();
         }
     }
 

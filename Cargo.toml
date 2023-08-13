@@ -8,3 +8,4 @@ edition = "2021"
 [dependencies]
 pancurses = "0.17"
 rand = "0.8.5"
+nannou = "0.18.1"
